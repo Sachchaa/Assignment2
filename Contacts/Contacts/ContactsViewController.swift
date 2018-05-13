@@ -23,21 +23,16 @@ class ContactsViewController: UITableViewController {
             contacts = try (context.fetch(Contact.fetchRequest())as! [Contact] )
         }
         catch{}
+        
+        //reload the table
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        do {
-            contacts = try (context.fetch(Contact.fetchRequest())as! [Contact] )
-        }
-        catch{}
         
-        
-        
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -67,12 +62,50 @@ class ContactsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
         
         let con = contacts[indexPath.row]
+        if con.lastName == nil || con.firstName == nil {
+            con.lastName = " "
+            con.firstName = " "
+        }
         cell.textLabel?.text = con.firstName! + " " + con.lastName!
-
-        
-
         return cell
     }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            let conta = contacts[indexPath.row]
+            context.delete(conta)
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+           // tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            do {
+                contacts = try context.fetch(Contact.fetchRequest())
+            }
+            catch{
+            }
+                    } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+        
+        tableView.reloadData()
+}
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "contactDetailsSegue") {
+            let contactview = segue.destination as! ContactDetailsViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            let contact = contacts[indexPath!.row]
+            contactview.con = contact
+        }
+        
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    
+}
  
 
     /*
@@ -84,16 +117,9 @@ class ContactsViewController: UITableViewController {
     */
 
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+    
+ 
+ 
 
     /*
     // Override to support rearranging the table view.
@@ -108,16 +134,9 @@ class ContactsViewController: UITableViewController {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
+ */
 
-    /*
-    // MARK: - Navigation
+    
+ 
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
+ }*/
