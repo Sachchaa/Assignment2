@@ -67,7 +67,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaX-r0-AuU">
-                                <rect key="frame" x="95" y="214" width="229" height="21"/>
+                                <rect key="frame" x="16" y="214" width="343" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -102,23 +102,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="add image" translatesAutoresizingMaskIntoConstraints="NO" id="a5c-rk-b7U">
-                                <rect key="frame" x="135" y="96" width="100" height="100"/>
+                                <rect key="frame" x="137" y="96" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OaP-tF-dPn">
-                                <rect key="frame" x="75" y="401" width="55" height="21"/>
+                                <rect key="frame" x="81" y="401" width="55" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fme-6w-5St">
-                                <rect key="frame" x="135" y="275" width="40" height="40"/>
+                                <rect key="frame" x="100" y="272" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="call"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jV-e1-fma">
-                                <rect key="frame" x="212" y="275" width="40" height="40"/>
+                                <rect key="frame" x="235" y="275" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="msg"/>
                             </button>
@@ -164,7 +164,7 @@
                     <navigationItem key="navigationItem" id="Eri-Pq-Ser">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="Yhj-Wr-tBT">
                             <connections>
-                                <segue destination="i1e-ok-1XJ" kind="show" id="mdf-oz-tDo"/>
+                                <segue destination="i1e-ok-1XJ" kind="show" identifier="editContactSegue" id="1au-sE-qpu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -232,10 +232,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="add image" translatesAutoresizingMaskIntoConstraints="NO" id="pmb-fA-t2I">
-                                <rect key="frame" x="138" y="96" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8wq-Sb-2ji">
                                 <rect key="frame" x="163" y="230" width="180" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -289,9 +285,10 @@
                                 <rect key="frame" x="249" y="541" width="86" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
-                                <state key="normal" title="Done"/>
+                                <state key="normal" title="Update"/>
                                 <connections>
                                     <action selector="btnAddContact:" destination="N0m-Ar-Dg7" eventType="touchUpInside" id="z0y-uJ-0gY"/>
+                                    <action selector="updateContact:" destination="i1e-ok-1XJ" eventType="touchUpInside" id="gvK-SD-Eib"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAK-gV-WhS">
@@ -310,10 +307,29 @@
                                     <action selector="btnAddContact:" destination="N0m-Ar-Dg7" eventType="touchUpInside" id="NTM-BM-RXm"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXn-ZL-ADe">
+                                <rect key="frame" x="138" y="90" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="add image"/>
+                                <connections>
+                                    <action selector="addImage:" destination="i1e-ok-1XJ" eventType="touchUpInside" id="OKH-e6-JVD"/>
+                                    <action selector="addImage:" destination="N0m-Ar-Dg7" eventType="touchUpInside" id="lmv-wO-JQn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="yGV-hj-eU8"/>
                     </view>
+                    <connections>
+                        <outlet property="imgPerson" destination="RXn-ZL-ADe" id="0rP-d1-9Md"/>
+                        <outlet property="txtAddress" destination="kqR-oH-u8q" id="D9o-RN-vnj"/>
+                        <outlet property="txtEmail" destination="3Vv-qP-RoB" id="TQc-y1-Q0R"/>
+                        <outlet property="txtFName" destination="8wq-Sb-2ji" id="sZ7-lt-gCc"/>
+                        <outlet property="txtHome" destination="cvH-X0-59q" id="HMx-Yk-O9e"/>
+                        <outlet property="txtLName" destination="wcG-XO-zfW" id="xdg-nv-qYw"/>
+                        <outlet property="txtMetDay" destination="871-wc-X0b" id="8fi-8C-lPx"/>
+                        <outlet property="txtMobile" destination="Y3h-aK-U8x" id="UxO-z4-ZdE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muk-1y-VQV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

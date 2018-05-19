@@ -58,6 +58,7 @@ class ContactsViewController: UITableViewController {
 
     }
     
+    //show first name and last name
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
         

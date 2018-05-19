@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class ContactDetailsViewController: UIViewController {
-    var con : Contact? 
+    var con : Contact?
+    var cont = [NSManagedObject]()
     
+    //vars
     @IBOutlet weak var imgPerson: UIImageView!
     @IBOutlet weak var contactName: UILabel!
     @IBOutlet weak var lblMobile: UILabel!
@@ -19,20 +22,26 @@ class ContactDetailsViewController: UIViewController {
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblFriendsSince: UILabel!
 
+    //show data on contact view page
     override func viewDidLoad() {
         super.viewDidLoad()
-        let fname = con?.firstName
-        let lname = con?.lastName
-        contactName.text = fname! + " " + lname!
-        lblMobile.text = String(con!.mobile)
-        lblHome.text = String(con!.home)
-        lblEmail.text = con!.email
-        lblAddress.text = con!.address
-        let image = UIImage(data: con!.image!)
-        imgPerson.image = image
         
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        do {
+            //
+            cont = try (context.fetch(Contact.fetchRequest())as! [Contact])
+            let fname = con?.firstName
+            let lname = con?.lastName
+            contactName.text = fname! + " " + lname!
+            lblMobile.text = String(con!.mobile)
+            lblHome.text = String(con!.home)
+            lblEmail.text = con!.email
+            lblAddress.text = con!.address
+            let image = UIImage(data: con!.image!)
+            imgPerson.image = image
+        }
+        catch{}
         
-
         // Do any additional setup after loading the view.
     }
 
@@ -40,44 +49,20 @@ class ContactDetailsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
    
-    
-    
-
-    
-  /*  func getData(){
-        
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        do {
-            //
-            contacts = try (context.fetch(Contact.fetchRequest())as! [Contact] )
-            contactName.text? = 
-        }
-            
-        catch{}
-        
-        
-       let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
-        
-        let con = contacts[UITableViewCell.row]
-        cell.textLabel?.text = con.firstName! + " " + con.lastName!
-        return cell */
-        
-    
-   
-    
-
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+   //send data to edit contact page
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if(segue.identifier == "editContactSegue") {
+            let contactview = segue.destination as! EditContactsViewController
+            contactview.contact = con
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+   
 
 
 }

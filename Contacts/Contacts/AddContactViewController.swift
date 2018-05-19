@@ -54,7 +54,7 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
     
     //function to validate email address using regex
     func isValidateEmail(txtEmail:String) -> Bool {
-        let emailReg = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]"
+        let emailReg = "[A-Z0-9a-z._%+-]+\\@[A-Za-z0-9.-]+\\.[A-Za-z]+"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailReg)
         return emailTest.evaluate(with: txtEmail)
         
@@ -78,22 +78,14 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
         
         //validate image button
         if btnImage.currentBackgroundImage != nil && btnImage.currentBackgroundImage != #imageLiteral(resourceName: "add image") {
-            let imagedata : Data = UIImagePNGRepresentation(btnImage.currentBackgroundImage!)!
-            contact.image = imagedata
             imageOK = true
-            
-            
         }
         else {
-            let imagedata : Data = UIImagePNGRepresentation(btnImage.currentBackgroundImage!)!
-            contact.image = imagedata
             imageOK = true
-            
         }
         
         //validate first name
         if txtFName.text != "" {
-            contact.firstName = txtFName.text!
             fNameOK = true
             
         }
@@ -104,15 +96,14 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
         
         //validate last name
         if txtLName.text != ""{
-            contact.lastName = txtLName.text!
             lNameOK = true
            
         }
-        else if txtLName.text == "" {
+     /*   else if txtLName.text == "" {
             contact.lastName = ""
             lNameOK = true
            
-        }
+        } */
         else {
             errorMsg = "Invalid Conatct last name"
             lNameOK = false
@@ -120,7 +111,6 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
         
         //validate mobile number
         if txtMobile.text != "" && (txtMobile.text!).count == 10 {
-            contact.mobile = Int32(txtMobile.text!)!
             mobOK = true
             
         }
@@ -131,7 +121,6 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
         
         //validate home number
         if txtHome.text != "" && (txtHome.text!).count == 10 {
-            contact.home = Int32(txtHome.text!)!
             homeOK = true
             
         }
@@ -142,7 +131,6 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
         
         //validate address suburb
         if txtAddress.text != "" {
-            contact.address = txtAddress.text!
              addOK = true
             
         }
@@ -152,11 +140,8 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
         }
         
         //validate email address and calling validate email function
-        if txtEmail.text != "" {
-            //&& isValidateEmail(txtEmail: txtEmail.text!) == true
-            contact.email = txtEmail.text!
+        if txtEmail.text != "" && isValidateEmail(txtEmail: txtEmail.text!) == true {
             emailOK = true
-            
             
         }
         else {
@@ -194,15 +179,21 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
       
         if imageOK == true && fNameOK == true && lNameOK == true && mobOK == true && homeOK == true && addOK == true && emailOK == true {
             do {
-                //let alert = UIAlertController(title: "Add Contacts", message: "contact Added Successfully !! ", preferredStyle: UIAlertControllerStyle.alert)
-                //alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{ (alert:UIAlertAction!) -> Void in
-               // }))
-                //self.present(alert, animated: true, completion: nil)
-                
-                
-               // contact.firstName = txtFName.text!
-                //contact.lastName = txtLName.text!
-                
+ /*
+                 let alert = UIAlertController(title: "Add Contacts", message: "contact Added Successfully !! ", preferredStyle: UIAlertControllerStyle.alert)
+                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{ (alert:UIAlertAction!) -> Void in
+                 }))
+                self.present(alert, animated: true, completion: nil)
+ */
+ 
+                let imagedata : Data = UIImagePNGRepresentation(btnImage.currentBackgroundImage!)!
+                contact.image = imagedata
+                contact.firstName = txtFName.text!
+                contact.lastName = txtLName.text!
+                contact.mobile = Int32(txtMobile.text!)!
+                contact.home = Int32(txtHome.text!)!
+                contact.address = txtAddress.text!
+                contact.email = txtEmail.text!
                 
                 try context.save()
                 (UIApplication.shared.delegate as! AppDelegate).saveContext()
@@ -211,25 +202,24 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
             catch{}
         }
             
-            else {
-                let alert = UIAlertController(title: "Add Contacts", message: errorMsg, preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{ (alert:UIAlertAction!) -> Void in
-                }))
-                self.present(alert, animated: true, completion: nil)
-            }
+        else if imageOK == false || imageOK == true && fNameOK == false && lNameOK == false || lNameOK == true && mobOK == false && homeOK == false && addOK == false && emailOK == false {
+            
+            let alert = UIAlertController(title: "Add Contacts", message: "Please Enter Details", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{ (alert:UIAlertAction!) -> Void in
+            }))
+            self.present(alert, animated: true, completion: {print("test")})
             
         }
-        //save contact details when click the done button
-       
-    
-      //
-      //
-    
-        
-        
-    
-    
- 
+            
+        else {
+            let alert = UIAlertController(title: "Add Contacts", message: errorMsg, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{ (alert:UIAlertAction!) -> Void in
+            }))
+            self.present(alert, animated: true, completion: {print("test")})
+            
+           }
+            
+        }
     
     
     /*
