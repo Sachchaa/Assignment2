@@ -44,6 +44,25 @@ class ContactDetailsViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        do {
+            //
+            cont = try (context.fetch(Contact.fetchRequest())as! [Contact])
+            let fname = con?.firstName
+            let lname = con?.lastName
+            contactName.text = fname! + " " + lname!
+            lblMobile.text = String(con!.mobile)
+            lblHome.text = String(con!.home)
+            lblEmail.text = con!.email
+            lblAddress.text = con!.address
+            let image = UIImage(data: con!.image!)
+            imgPerson.image = image
+        }
+        catch{}
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
