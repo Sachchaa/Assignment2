@@ -22,7 +22,6 @@ class EditContactsViewController: UIViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var txtHome: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
-    @IBOutlet weak var txtMetDay: UITextField!
     
     //add image from gallery
     @IBAction func addImage(_ sender: UIButton) {
@@ -65,8 +64,6 @@ class EditContactsViewController: UIViewController, UIImagePickerControllerDeleg
         }
         catch{}
         
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

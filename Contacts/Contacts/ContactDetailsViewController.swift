@@ -8,20 +8,25 @@
 
 import UIKit
 import CoreData
+//import MessageUI
 
 class ContactDetailsViewController: UIViewController {
+
+    
+    //vars
     var con : Contact?
     var cont = [NSManagedObject]()
     
-    //vars
+    //IBoutlet
     @IBOutlet weak var imgPerson: UIImageView!
     @IBOutlet weak var contactName: UILabel!
     @IBOutlet weak var lblMobile: UILabel!
     @IBOutlet weak var lblHome: UILabel!
     @IBOutlet weak var lblAddress: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
-    @IBOutlet weak var lblFriendsSince: UILabel!
-
+    @IBOutlet weak var call: UIButton!
+    @IBOutlet weak var msg: UIButton!
+    
     //show data on contact view page
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +50,7 @@ class ContactDetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    //data show when open the page
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -78,10 +84,40 @@ class ContactDetailsViewController: UIViewController {
             let contactview = segue.destination as! EditContactsViewController
             contactview.contact = con
         }
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-   
-
-
+    
+    //codings for call and massege buttons. they are not woeking. 
+ 
+     /*
+    @IBAction func btnMsg(_ sender: UIButton) {
+        
+        let msgVC = MFMessageComposeViewController()
+        
+        msgVC.recipients = [lblMobile.text!]
+        msgVC.messageComposeDelegate = self
+        
+        self.present(msgVC, animated: true, completion: nil )
+        
+        //self.presentedViewController(msgVC, animated: true, completion: nil)
+    
+        
+    }
+    
+    @IBAction func btnCall(_ sender: UIButton) {
+  
+        if let url = URL(string: "tel://\(String(con!.mobile))") {
+            UIApplication.shared.canOpenURL(url)
+        }
+      
+    
+    
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        
+    }
+ 
+ */
+    
+    
 }

@@ -18,7 +18,6 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var txtHome: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
-    @IBOutlet weak var txtDate: UITextField!
     @IBOutlet weak var btnImage: UIButton!
     
     
@@ -99,11 +98,12 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
             lNameOK = true
            
         }
-     /*   else if txtLName.text == "" {
+     
+         else if txtLName.text == "" {
             contact.lastName = ""
             lNameOK = true
            
-        } */
+        }
         else {
             errorMsg = "Invalid Conatct last name"
             lNameOK = false
@@ -149,33 +149,6 @@ class AddContactViewController: UIViewController, UIImagePickerControllerDelegat
             emailOK = false
         }
         
-        
-  /*
-        //validate date
-        let dateMet = txtDate.text
-        let date = Date()
-        let calender = Calendar.current
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        let metDate = formatter.date(from : dateMet!)
-        
-        let year = calender.component(.year, from: date)
-        let month = calender.component(.month, from: date)
-        let day = calender.component(.day, from: date)
-        let componants = calender.component(<#T##component: Calendar.Component##Calendar.Component#>, from: <#T##Date#>)
-        
-        let today = calender.dateComponents(com, from: date)
-        
-        
-        
-        if txtDate.text != "" && metDate < ) {
-           contact.metDate = metDate
-        }
-        else {
-            errorMsg = "Invalid date"
-        }
-    
-    */
       
         if imageOK == true && fNameOK == true && lNameOK == true && mobOK == true && homeOK == true && addOK == true && emailOK == true {
             do {

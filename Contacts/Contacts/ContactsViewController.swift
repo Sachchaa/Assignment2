@@ -11,15 +11,15 @@ import CoreData
 
 class ContactsViewController: UITableViewController {
     
-    
-   
+    //vars
     var contacts : [Contact] = []
     
+    //show data when start the page
     override func viewWillAppear(_ animated: Bool) {
         //get the NSManagedObjectContext
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do {
-            //
+            
             contacts = try (context.fetch(Contact.fetchRequest())as! [Contact] )
         }
         catch{}
@@ -30,8 +30,10 @@ class ContactsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.dataSource = self
         tableView.delegate = self
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -54,23 +56,26 @@ class ContactsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return contacts.count
+            
+            return contacts.count
 
     }
     
     //show first name and last name
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
-        
-        let con = contacts[indexPath.row]
+        //let text: String
+        let con = self.contacts[indexPath.row]
         if con.lastName == nil || con.firstName == nil {
             con.lastName = " "
             con.firstName = " "
         }
         cell.textLabel?.text = con.firstName! + " " + con.lastName!
+        
         return cell
     }
 
+    //table controller
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         if editingStyle == .delete {
@@ -83,10 +88,11 @@ class ContactsViewController: UITableViewController {
             do {
                 contacts = try context.fetch(Contact.fetchRequest())
             }
-            catch{
-            }
-                    } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            catch{}
+         
+        //edit contact 
+        } else if editingStyle == .insert {
+           
         }
         
         tableView.reloadData()
